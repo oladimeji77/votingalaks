@@ -7,13 +7,13 @@ from pydantic import ConfigDict
 
 ################################################################################
 ##############################  Registration   #################################
+
 class CreateUser(BaseModel):
     fname: str
     lname: str
     username: str
     Email: EmailStr
     Password: str
-
 
 class CreateUserRes(BaseModel):
     fname: str
