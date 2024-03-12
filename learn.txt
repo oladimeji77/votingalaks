@@ -1,0 +1,7 @@
+This module contains config.py and env for setting the environment variables
+
+so that variables are not hard coded
+
+Implementing voting on blogs requires a composite key
+composite keys uses more than one primary key in a table
+we create a vote table in models.py 
