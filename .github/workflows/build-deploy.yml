@@ -3,7 +3,7 @@ on: [push]
 jobs:
   build:
     environment: 
-      - name: testing
+      name: testing
     env: 
       DATABASE_HOSTNAME: {{secrets.DATABASE_HOSTNAME}}
       DATABASE_PORT: {{secrets.DATABASE_PORT}}
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     environment: 
-      - name: production
+      name: production
     steps:
       - uses: actions/checkout@v4
       - name: Echo wassup
