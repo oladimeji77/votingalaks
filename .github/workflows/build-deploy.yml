@@ -1,7 +1,7 @@
 name: Python package
 on: [push]
 jobs:
-  job1:
+  build:
     env: 
       DATABASE_HOSTNAME: localhost
       DATABASE_PORT: 5432
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Python 3.11.3
+      - name: Install Python
         # This is the version of the action for setting up Python, not the Python version.
         uses: actions/setup-python@v4
         with:          
@@ -42,4 +42,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run the application
-        run: uvicorn main:app 
+        run: pip freeze
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Echo wassup
+        run: echo "welcome to the main deployment"
