@@ -6,7 +6,7 @@ from database import engine, get_db
 import schema, model
 from .jwttoken import get_current_user
 
-router = APIRouter(prefix="/api/users", tags=['Users'])
+router = APIRouter(prefix="/api/users", tags=['USERS'])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schema.CreateUserRes)

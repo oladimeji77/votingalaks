@@ -5,6 +5,9 @@ from routers import users, auth
 # from routers import history, transactions, users, auth, transactions, admin, vote
 from config import settings as ss
 from fastapi.middleware.cors import CORSMiddleware
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import time
 
 
 app = FastAPI(title=ss.project_title, 
@@ -20,6 +23,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+#i added this try except block to catch database connection issues
+while True:
+    try:
+        conn = psycopg2.connect(host="127.0.0.1",database="zendb",user="postgres",password="password",cursor_factory=RealDictCursor)
+        cursor = conn.cursor()
+        print(cursor)
+        print("Database connection was successful")
+        break
+    except Exception as error:
+        print("Connection to database failed")
+        print("Error: ", error)
+        time.sleep(5)
+
+@app.get("/api")
+def root():
+    return {"message": "Hello from FastApi"}
 
 app.include_router(users.router)
 app.include_router(auth.router)

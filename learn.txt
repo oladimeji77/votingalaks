@@ -5,3 +5,35 @@ so that variables are not hard coded
 Implementing voting on blogs requires a composite key
 composite keys uses more than one primary key in a table
 we create a vote table in models.py 
+
+Github actions
+create a directory .github
+inside it create a dir workflows
+create a yaml file with a .yml ext eg main.yml
+name: Python package   #name of the project, could be anything
+on: [push]              #trigger could be [push, pull_request]
+jobs:
+  deploy:               #name of the job is deploy, could be anything e.g goat, test, build etc
+    runs-on: ubuntu-latest  #the os the github runner will run on
+    needs: [build]          #needs another job called build to run successfully before it runs
+    environment:            #environment where the secrets key is taken
+      name: production      #name of the enviroment
+    steps:                  #where the actuall CI steps takes place
+      - uses: actions/checkout@v4
+      - name: Echo wassup
+        run: echo "welcome to the main deployment"
+
+You can create an environment variables from github
+navigate settings > secrets and variables > actions 
+create an envirronment eg test or production or UAT
+You can now add secret keys to the environments as per need basis
+env: 
+      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
+      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      project_title: Voting Online Noun #this one is hard coded
+
+
+
+other things
+islamic bank
+nisham
