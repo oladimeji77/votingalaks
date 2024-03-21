@@ -39,7 +39,7 @@ while True:
 
 @app.get("/api")
 def root():
-    return {"message": "Welcome to Voting Portal"}
+    return {"message": "Welcome to Voting Portal !!!!!"}
 
 app.include_router(users.router)
 app.include_router(auth.router)
