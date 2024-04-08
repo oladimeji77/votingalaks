@@ -34,6 +34,4 @@ env:
 
 
 
-other things
-islamic bank
-nisham
+user =  relationship("AccreditedUserDB", back_populates="elect") back populates matches the relation name of the other table

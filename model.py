@@ -3,7 +3,7 @@ from database import Base
 from datetime import datetime
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
-from sqlalchemy.orm import Relationship
+from sqlalchemy.orm import relationship
 
 class AccreditedUserDB(Base):
     __tablename__ = "ausers"
@@ -14,24 +14,21 @@ class AccreditedUserDB(Base):
     Email = Column(String, nullable=False)
     Password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, default=datetime.now())
-    #transactions =  relationship("TranxGLDb", back_populates='user')
+    elect =  relationship("ElectionDb", back_populates='user')
  
 
-# class TranxGLDb(Base):
-#     __tablename__ = "tranx"
-#     id = Column(Integer, primary_key=True, index=True)
-#     amount = Column(Integer)
-#     currency = Column(String, default='NGN')
-#     payout = Column(Integer)
-#     Success = Column(Boolean, default=False)
-#     created_at = Column(TIMESTAMP, default=datetime.now()) 
-#     user_id = Column(Integer, ForeignKey('NewUser.id', ondelete="CASCADE"), nullable=False)
-#     user =  Relationship("UserDB")
+class ElectionDb(Base):
+    __tablename__ = "election"
+    id = Column(Integer, primary_key=True, index=True)
+    president = Column(String, nullable=False)
+    created_at = Column(TIMESTAMP, default=datetime.now()) 
+    user_id = Column(Integer, ForeignKey('ausers.id', ondelete="CASCADE"), nullable=False)
+    user =  relationship("AccreditedUserDB", back_populates="elect")
 
-# class Vote(Base):
-#     __tablename__ = "votes"
-#     auser_id = Column(Integer, ForeignKey("auser.id", ondelete="CASCADE"), primary_key=True)
-#     vote_id = Column(Integer, ForeignKey("tranx.id", ondelete="CASCADE"), primary_key=True)
+class Voted(Base):
+    __tablename__ = "voted"
+    auser_id = Column(Integer, ForeignKey("ausers.id", ondelete="CASCADE"), primary_key=True)
+    election_id = Column(Integer, ForeignKey("election.id", ondelete="CASCADE"), primary_key=True)
     
 
 

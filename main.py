@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, status, HTTPException, Response
 from database import engine, get_db 
 import schema, model
-from routers import users, auth
+from routers import users, auth, election, vote
 # from routers import history, transactions, users, auth, transactions, admin, vote
 from config import settings as ss
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,12 +39,12 @@ while True:
 
 @app.get("/api")
 def root():
-    return {"message": "Welcome to Voting Portal !!!!!"}
+    return {"message": "One to many"}
 
 app.include_router(users.router)
 app.include_router(auth.router)
-# app.include_router(transactions.router)
-# app.include_router(admin.router)
+app.include_router(election.router)
+app.include_router(vote.router)
 # app.include_router(vote.router)
 
 

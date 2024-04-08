@@ -64,6 +64,7 @@ class TranxGLDb(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    name: str
 
 
 class TokenData(BaseModel):
@@ -73,3 +74,19 @@ class TokenData(BaseModel):
 class Votes(BaseModel):
     tranx_id: int
     dir: conint(le=1)
+
+
+###########################################################################
+############################  Election ####################################
+class Elect(BaseModel):
+    president: str
+
+    
+class ElectRes(BaseModel):
+    president: str
+    user_id: int
+    user: CreateUserRes
+
+
+
+
