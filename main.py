@@ -27,7 +27,7 @@ app.add_middleware(
 #i added this try except block to catch database connection issues
 while True:
     try:
-        conn = psycopg2.connect(host="127.0.0.1",database="zendb",user="postgres",password="password",cursor_factory=RealDictCursor)
+        conn = psycopg2.connect(host="127.0.0.1",database="postgres",user="postgres",password="password",cursor_factory=RealDictCursor)
         cursor = conn.cursor()
         print(cursor)
         print("Database connection was successful")
