@@ -17,7 +17,7 @@ def Login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
     if not verify_password(request.password, user.Password):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Username or Password is incorrect")
     access_token = create_access_token(data={"sub": user.username})
-    return {"access_token":access_token, "token_type":"bearer", "name": f"{user.fname}"}
+    return {"access_token":access_token, "token_type":"bearer", "fname": f"{user.fname}", "username": f"{user.username}"}
 
 
 
