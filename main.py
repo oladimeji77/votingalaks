@@ -41,6 +41,13 @@ while True:
 def root():
     return {"message": "One to many"}
 
+@app.get("/result")
+def election_result():
+    cursor.execute("""SELECT COUNT(candidate) as Pres_count, candidate FROM voted GROUP BY candidate""")
+    result = cursor.fetchall()
+    return result
+    
+
 app.include_router(users.router)
 app.include_router(auth.router)
 app.include_router(election.router)

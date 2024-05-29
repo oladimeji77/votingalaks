@@ -14,21 +14,13 @@ class AccreditedUserDB(Base):
     Email = Column(String, nullable=False)
     Password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, default=datetime.now())
-    elect =  relationship("ElectionDb", back_populates='user')
+   
  
-
-class ElectionDb(Base):
-    __tablename__ = "election"
-    id = Column(Integer, primary_key=True, index=True)
-    president = Column(String, nullable=False)
-    created_at = Column(TIMESTAMP, default=datetime.now()) 
-    user_id = Column(Integer, ForeignKey('ausers.id', ondelete="CASCADE"), nullable=False)
-    user =  relationship("AccreditedUserDB", back_populates="elect")
 
 class Voted(Base):
     __tablename__ = "voted"
-    auser_id = Column(Integer, ForeignKey("ausers.id", ondelete="CASCADE"), primary_key=True)
-    election_id = Column(Integer, ForeignKey("election.id", ondelete="CASCADE"), primary_key=True)
+    auser_id = Column(Integer, ForeignKey("ausers.id", ondelete="CASCADE"), primary_key=True, unique=True)
+    candidate = Column(String, nullable=False)
     
 
 

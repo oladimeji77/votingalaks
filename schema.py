@@ -1,9 +1,10 @@
 from pydantic import BaseModel, EmailStr
 from typing import Annotated, Union
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Literal
 from pydantic.types import conint
 from pydantic import ConfigDict
+
 
 ################################################################################
 ##############################  Registration   #################################
@@ -79,13 +80,17 @@ class Votes(BaseModel):
 ###########################################################################
 ############################  Election ####################################
 class Elect(BaseModel):
-    president: str
+    candidate: Literal['Tinubu', 'Obi', 'Rabiu', 'Sowore', 'Okotie', 'Atiku']
+    
+
+
 
     
 class ElectRes(BaseModel):
-    president: str
-    user_id: int
-    user: CreateUserRes
+    Obi: str
+    Atiku: int
+    Tinubu: int
+    Sowore: int
 
 
 

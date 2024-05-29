@@ -10,13 +10,15 @@ router = APIRouter(prefix="/api/elects", tags=['ELECT'])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schema.ElectRes)
-def create_elect(request: schema.Elect, db: Session = Depends(get_db), current_election: int = Depends(get_current_user)):
-    request.user_id = current_election.id
-    new_election = model.ElectionDb(**request.dict())
+def create_elect(request: schema.Elect, db: Session = Depends(get_db), electorate: int = Depends(get_current_user)):
+    check = db.query(model.ElectionDb).filter(model.ElectionDb.user_id == electorate.id).first()
+    if check != None:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"You have Voted already!!")
+    new_election = model.ElectionDb(user_id = electorate.id, **request.dict())
     db.add(new_election)
     db.commit()
     db.refresh(new_election)
-    return new_election
+    return check
 
 
 
